@@ -8,6 +8,7 @@ on:
 jobs:
   publish-to-dockerhub:
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       -
         name: Login to Docker Hub
