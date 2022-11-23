@@ -8,12 +8,23 @@ server.on('request', (request, response) => {
     }).on('end', () => {
         body = Buffer.concat(body).toString();
 
-        console.log(`==== ${request.method} ${request.url}`);
-        console.log('> Headers');
-        console.log(request.headers);
+        let logdata;
+        logdata = `${request.method} ${request.url} \n`
+        logdata = logdata + '> Headers\n'
+        logdata = logdata + JSON.stringify(request.headers) + "\n"
 
-        console.log('> Body');
-        console.log(body);
+        if (body) {
+            logdata = logdata + '> Body\n'
+            logdata = logdata + body
+        }
+        if (process.env.ADDITIONAL_CONTET) {
+            logdata = logdata + '> Additional Content\n'
+            logdata = logdata + process.env.ADDITIONAL_CONTEN
+        }
+        console.log(logdata)
+
+        response.writeHead(200)
+        response.write(logdata)
         response.end();
     });
 }).listen(80);
