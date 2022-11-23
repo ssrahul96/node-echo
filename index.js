@@ -11,7 +11,7 @@ server.on('request', (request, response) => {
         let logdata;
         logdata = `${request.method} ${request.url} \n`
         logdata = logdata + '> Headers\n'
-        logdata = logdata + JSON.stringify(request.headers) + "\n"
+        logdata = logdata + JSON.stringify(request.headers, null, 2) + "\n"
 
         if (body) {
             logdata = logdata + '> Body\n'
