@@ -8,12 +8,12 @@ server.on('request', (request, response) => {
     }).on('end', () => {
         body = Buffer.concat(body).toString();
 
-	console.log(`==== ${request.method} ${request.url}`);
-	console.log('> Headers');
+        console.log(`==== ${request.method} ${request.url}`);
+        console.log('> Headers');
         console.log(request.headers);
 
-	console.log('> Body');
-	console.log(body);
+        console.log('> Body');
+        console.log(body);
         response.end();
     });
 }).listen(80);
