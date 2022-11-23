@@ -17,9 +17,10 @@ server.on('request', (request, response) => {
             logdata = logdata + '> Body\n'
             logdata = logdata + body
         }
-        if (process.env.ADDITIONAL_CONTET) {
+
+        if (process.env.ADDITIONAL_CONTENT) {
             logdata = logdata + '> Additional Content\n'
-            logdata = logdata + process.env.ADDITIONAL_CONTEN
+            logdata = logdata + process.env.ADDITIONAL_CONTENT
         }
         console.log(logdata)
 
