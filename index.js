@@ -8,24 +8,25 @@ server.on('request', (request, response) => {
     }).on('end', () => {
         body = Buffer.concat(body).toString();
 
-        let logdata;
-        logdata = `${request.method} ${request.url} \n`
-        logdata = logdata + '> Headers\n'
-        logdata = logdata + JSON.stringify(request.headers, null, 2) + "\n"
+        let logdata = {
+            timestamp: Date.now(),
+            method: request.method,
+            url: request.url,
+            headers: request.headers
+        }
 
         if (body) {
-            logdata = logdata + '> Body\n'
-            logdata = logdata + body
+            logdata['body'] = body;
         }
 
         if (process.env.ADDITIONAL_CONTENT) {
-            logdata = logdata + '> Additional Content\n'
-            logdata = logdata + process.env.ADDITIONAL_CONTENT
+            logdata['additionalContents'] = process.env.ADDITIONAL_CONTENT
         }
-        console.log(logdata)
+
+        console.log(JSON.stringify(logdata))
 
         response.writeHead(200)
-        response.write(logdata)
+        response.write(JSON.stringify(logdata))
         response.end();
     });
 }).listen(80);
