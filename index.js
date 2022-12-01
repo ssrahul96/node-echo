@@ -25,6 +25,7 @@ server.on('request', (request, response) => {
 
         console.log(JSON.stringify(logdata))
 
+        response.setHeader('Content-Type', 'application/json');
         response.writeHead(200)
         response.write(JSON.stringify(logdata))
         response.end();
