@@ -12,4 +12,6 @@ COPY . .
 
 EXPOSE 80
 
+HEALTHCHECK --interval=5s --timeout=3s --start-period=10s CMD curl --fail http://localhost:80/health || exit 1
+
 CMD [ "node", "index.js" ]
