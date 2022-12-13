@@ -1,6 +1,12 @@
 const http = require('http');
 const server = http.createServer();
 
+
+let listenPort = 80
+if (process.env.SERVER_PORT) {
+    listenPort = process.env.SERVER_PORT
+}
+
 server.on('request', (request, response) => {
     let body = [];
     request.on('data', (chunk) => {
@@ -30,4 +36,4 @@ server.on('request', (request, response) => {
         response.write(JSON.stringify(logdata))
         response.end();
     });
-}).listen(80);
+}).listen(listenPort);
