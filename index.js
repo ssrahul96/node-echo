@@ -20,7 +20,7 @@ server.on('request', (request, response) => {
         let logdata;
         if (request.url.match(HTTP_REGEX)) {
             // console.log("match : " + request.url)
-            logdata = getHttpResponse(request);
+            [logdata, responseCode] = getHttpResponse(request);
         } else {
             logdata = getGenericResponse(body, request);
         }
@@ -67,5 +67,5 @@ function getHttpResponse(request) {
         message: message
     };
 
-    return logdata;
+    return [logdata, responseCode];
 }
