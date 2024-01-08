@@ -1,6 +1,12 @@
 const http = require('http');
+const url = require('url');
 const httpStatus = require('http-status-codes');
 const server = http.createServer();
+
+const sleep = (millis) => {
+    var stop = new Date().getTime();
+    while (new Date().getTime() < stop + millis) { }
+};
 
 
 let listenPort = 80
@@ -25,6 +31,15 @@ server.on('request', (request, response) => {
             logdata = getGenericResponse(body, request);
         }
 
+        let qp = url.parse(request.url, true)
+
+        if (qp.query.delay) {
+            let delay = parseInt(qp.query.delay);
+            console.log(delay)
+            // sleep(5 * 1000)
+            sleep(delay * 1000);
+        }
+
         console.log(JSON.stringify(logdata));
         response.setHeader('Content-Type', 'application/json');
         response.writeHead(responseCode)
@@ -36,7 +51,7 @@ server.on('request', (request, response) => {
 function getGenericResponse(body, request) {
     body = Buffer.concat(body).toString();
 
-    logdata = {
+    let logdata = {
         timestamp: Date.now(),
         method: request.method,
         url: request.url,
@@ -62,7 +77,7 @@ function getHttpResponse(request) {
         message = httpStatus.getReasonPhrase(responseCode)
     } catch (err) { }
 
-    logdata = {
+    let logdata = {
         code: responseCode,
         message: message
     };
