@@ -1,4 +1,4 @@
-FROM node:22.alpine3.20
+FROM node:22.15-alpine3.21
 
 RUN mkdir -p /app/src
 
